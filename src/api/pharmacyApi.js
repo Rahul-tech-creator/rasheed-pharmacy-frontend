@@ -1,4 +1,4 @@
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API_BASE = import.meta.env.VITE_API_URL || 'https://rasheed-pharmacy-backend.onrender.com/api';
 export const UPLOAD_BASE = API_BASE.replace('/api', '') + '/uploads';
 
 // ==================== TOKEN MANAGEMENT ====================
