@@ -1,4 +1,9 @@
-const API_BASE = import.meta.env.VITE_API_URL || 'https://rasheed-pharmacy-backend.onrender.com/api';
+const rawApiUrl = import.meta.env.VITE_API_URL || 'https://rasheed-pharmacy-backend.onrender.com/api';
+// Ensure API_BASE always includes the /api suffix if it's hitting the backend directly
+const API_BASE = rawApiUrl.endsWith('/api') || rawApiUrl.endsWith('/api/') 
+  ? rawApiUrl.replace(/\/$/, '') 
+  : `${rawApiUrl.replace(/\/$/, '')}/api`;
+
 export const UPLOAD_BASE = API_BASE.replace('/api', '') + '/uploads';
 
 // ==================== TOKEN MANAGEMENT ====================
