@@ -12,7 +12,7 @@ const LoginPage = () => {
   const [phone, setPhone] = useState('');
   const [name, setName] = useState('');
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
-  const [devOtp, setDevOtp] = useState('');
+
   const [submitting, setSubmitting] = useState(false);
   const [localError, setLocalError] = useState('');
   const [countdown, setCountdown] = useState(0);
@@ -49,9 +49,7 @@ const LoginPage = () => {
     setSubmitting(true);
     try {
       const result = await sendOtp(cleanPhone, name);
-      if (result.dev_otp) {
-        setDevOtp(result.dev_otp);
-      }
+
       setStep('otp');
       setCountdown(30);
       setTimeout(() => otpRefs.current[0]?.focus(), 100);
@@ -126,7 +124,7 @@ const LoginPage = () => {
     const cleanPhone = phone.replace(/\D/g, '');
     try {
       const result = await sendOtp(cleanPhone, name);
-      if (result.dev_otp) setDevOtp(result.dev_otp);
+
       setCountdown(30);
       setOtp(['', '', '', '', '', '']);
     } catch (err) {
@@ -233,13 +231,7 @@ const LoginPage = () => {
                 +91 {phone}
               </p>
 
-              {/* Dev OTP hint */}
-              {devOtp && (
-                <div className="alert alert-info" style={{ marginBottom: '1rem' }}>
-                  <ShieldCheck size={16} />
-                  <span>Dev Mode — OTP: <strong>{devOtp}</strong></span>
-                </div>
-              )}
+
 
               <div className="otp-input-group" onPaste={handleOtpPaste}>
                 {otp.map((digit, i) => (
@@ -285,7 +277,7 @@ const LoginPage = () => {
                 <button
                   type="button"
                   className="btn btn-ghost"
-                  onClick={() => { setStep('phone'); setOtp(['', '', '', '', '', '']); setDevOtp(''); setLocalError(''); clearError(); }}
+                  onClick={() => { setStep('phone'); setOtp(['', '', '', '', '', '']); setLocalError(''); clearError(); }}
                   style={{ fontSize: '0.875rem' }}
                 >
                   <ArrowLeft size={14} /> Change Number
